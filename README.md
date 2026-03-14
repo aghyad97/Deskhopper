@@ -58,10 +58,10 @@ Click any space label to switch to it. Use Ctrl+Option+1 through Ctrl+Option+9 f
 | Position            | 12 positions (corners, edges, centers) | Top Right      |
 | Orientation         | Horizontal / Vertical                  | Horizontal     |
 | Mode                | Always Visible / Auto-Hide             | Always Visible |
-| Idle Opacity        | 0% -- 100%                             | 10%            |
+| Idle Opacity        | 0% -- 100%                             | 100%           |
 | Hover Opacity       | 0% -- 100%                             | 100%           |
 | Transition Duration | 0.05s -- 1.0s                          | 0.2s           |
-| Previews            | On / Off                               | Off            |
+| Previews            | On / Off                               | On             |
 | Preview Size        | Small / Medium / Large                 | Small          |
 | Compact Mode        | On / Off                               | On             |
 | Hotkeys             | On / Off                               | On             |

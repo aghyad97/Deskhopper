@@ -104,10 +104,10 @@ final class SettingsManager: ObservableObject {
         self.previewSize = Self.loadEnum(defaults, key: .previewSize, fallback: .small)
         self.panelTransitionStyle = Self.loadEnum(defaults, key: .panelTransitionStyle, fallback: .instant)
         self.hotkeyModifier = Self.loadEnum(defaults, key: .hotkeyModifier, fallback: .controlOption)
-        self.idleOpacity = Self.loadDouble(defaults, key: .idleOpacity, fallback: 0.1, min: 0, max: 1)
+        self.idleOpacity = Self.loadDouble(defaults, key: .idleOpacity, fallback: 1.0, min: 0, max: 1)
         self.hoverOpacity = Self.loadDouble(defaults, key: .hoverOpacity, fallback: 1.0, min: 0, max: 1)
         self.opacityTransitionDuration = Self.loadDouble(defaults, key: .opacityTransitionDuration, fallback: 0.2, min: 0.05, max: 1)
-        self.showPreviews = defaults.object(forKey: Key.showPreviews.rawValue) as? Bool ?? false
+        self.showPreviews = defaults.object(forKey: Key.showPreviews.rawValue) as? Bool ?? true
         self.compactMode = defaults.object(forKey: Key.compactMode.rawValue) as? Bool ?? true
         self.globalHotkeysEnabled = defaults.object(forKey: Key.globalHotkeysEnabled.rawValue) as? Bool ?? true
         self.launchAtLogin = defaults.object(forKey: Key.launchAtLogin.rawValue) as? Bool ?? false
