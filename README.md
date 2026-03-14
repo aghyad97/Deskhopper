@@ -14,7 +14,7 @@ Deskhopper fixes this. A small, always-visible panel shows all your spaces and l
 - One-click switching to any desktop
 - Global hotkeys (Ctrl+Option+1-9, configurable modifier key)
 - Horizontal or vertical layout
-- Desktop preview thumbnails (optional, three sizes)
+- Desktop preview thumbnails (optional, three sizes) -- previews show "?" until you visit each desktop once
 - Configurable opacity (10% idle, 100% on hover, smooth transitions)
 - Always-visible or auto-hide mode (panel slides in from screen edge)
 - Custom space names per desktop

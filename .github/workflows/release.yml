@@ -29,6 +29,14 @@ jobs:
           # Copy Info.plist
           cp Deskhopper/Sources/Deskhopper/Resources/Info.plist "$APP_DIR/"
 
+          # Copy icon assets
+          cp Deskhopper/Sources/Deskhopper/Resources/AppIcon.icns "$APP_DIR/Resources/"
+
+          # Copy SPM resource bundle (contains menu bar icon)
+          if [ -d "Deskhopper/.build/release/Deskhopper_Deskhopper.bundle" ]; then
+            cp -R Deskhopper/.build/release/Deskhopper_Deskhopper.bundle "$APP_DIR/Resources/"
+          fi
+
           # Update version from tag
           VERSION="${TAG_NAME#v}"
           /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP_DIR/Info.plist"
@@ -44,7 +52,7 @@ jobs:
           VERSION="${TAG_NAME#v}"
           DMG_NAME="Deskhopper-${VERSION}.dmg"
 
-          # Create a temporary directory for DMG contents
+          # Stage DMG contents with Applications symlink
           mkdir -p dmg-contents
           cp -R Deskhopper.app dmg-contents/
           ln -s /Applications dmg-contents/Applications
