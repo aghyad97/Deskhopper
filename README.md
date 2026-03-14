@@ -2,6 +2,8 @@
 
 Instant space switching for macOS. A floating panel that lives on every desktop, so you never have to swipe again.
 
+![Deskhopper Preview](preview.png)
+
 ## The Problem
 
 If you work across 6-9 macOS Spaces -- code editors, browsers, Slack, design tools, terminals, AI assistants -- you know the pain. Swiping through them one by one is slow. Mission Control is a full-screen interruption. Ctrl+arrow keys only move one space at a time. There is no built-in way to jump directly to Space 7 from Space 2.
