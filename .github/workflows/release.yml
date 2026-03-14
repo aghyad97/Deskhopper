@@ -1,0 +1,67 @@
+name: Build & Release DMG
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build release binary
+        working-directory: Deskhopper
+        run: swift build -c release
+
+      - name: Create .app bundle
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          APP_DIR="Deskhopper.app/Contents"
+          mkdir -p "$APP_DIR/MacOS"
+          mkdir -p "$APP_DIR/Resources"
+
+          # Copy binary
+          cp Deskhopper/.build/release/Deskhopper "$APP_DIR/MacOS/"
+
+          # Copy Info.plist
+          cp Deskhopper/Sources/Deskhopper/Resources/Info.plist "$APP_DIR/"
+
+          # Update version from tag
+          VERSION="${TAG_NAME#v}"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP_DIR/Info.plist"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$APP_DIR/Info.plist"
+
+          # Ad-hoc code sign
+          codesign --force --deep --sign - Deskhopper.app
+
+      - name: Create DMG
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          VERSION="${TAG_NAME#v}"
+          DMG_NAME="Deskhopper-${VERSION}.dmg"
+
+          # Create a temporary directory for DMG contents
+          mkdir -p dmg-contents
+          cp -R Deskhopper.app dmg-contents/
+          ln -s /Applications dmg-contents/Applications
+
+          # Create DMG
+          hdiutil create \
+            -volname "Deskhopper" \
+            -srcfolder dmg-contents \
+            -ov \
+            -format UDZO \
+            "$DMG_NAME"
+
+          echo "DMG_NAME=$DMG_NAME" >> "$GITHUB_ENV"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ env.DMG_NAME }}
+          generate_release_notes: true
+          draft: false

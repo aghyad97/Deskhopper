@@ -1,0 +1,10 @@
+.build/
+.swiftpm/
+Package.resolved
+DerivedData/
+build/
+*.app
+.DS_Store
+*.swp
+*~
+.superpowers/
